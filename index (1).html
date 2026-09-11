@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="kk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Желілік хаттамалар — интерактивті оқу</title>
+<style>
+:root{--bg:#f5f7fb;--card:#fff;--text:#172033;--muted:#667085;--accent:#315efb;--accent2:#14b8a6;--border:#e5e7eb;--good:#16834a;--bad:#d92d20}
+*{box-sizing:border-box}body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,sans-serif;background:var(--bg);color:var(--text);line-height:1.55}
+header{background:linear-gradient(135deg,#172554,#315efb);color:#fff;padding:32px 20px;position:sticky;top:0;z-index:10;box-shadow:0 5px 18px #0002}
+.wrap{max-width:1100px;margin:auto}.top{display:flex;justify-content:space-between;gap:20px;align-items:center}.top h1{margin:0;font-size:clamp(24px,4vw,38px)}.top p{margin:6px 0 0;color:#dbe5ff}
+.progress{margin-top:20px;background:#ffffff33;height:8px;border-radius:99px;overflow:hidden}.bar{height:100%;background:#fff;width:0%;transition:.3s}
+nav{display:flex;gap:8px;overflow:auto;padding:14px 0}.navbtn{border:1px solid #ffffff55;background:#ffffff18;color:white;padding:8px 12px;border-radius:10px;cursor:pointer;white-space:nowrap}
+main{padding:28px 20px 60px}.section{display:none}.section.active{display:block}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}.card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:20px;box-shadow:0 5px 20px #10182808}.card h2,.card h3{margin-top:0}.term{border-left:4px solid var(--accent);padding-left:14px}
+.layers{display:flex;flex-direction:column;gap:8px;margin-top:15px}.layer{display:grid;grid-template-columns:55px 1fr auto;align-items:center;gap:14px;padding:14px 16px;border-radius:13px;background:#f8fafc;border:1px solid var(--border);cursor:pointer;transition:.2s}.layer:hover{transform:translateX(3px);border-color:#9db0ff}.num{font-weight:800;color:var(--accent)}.layer small{color:var(--muted)}.badge{padding:5px 9px;background:#e8edff;color:#2447bb;border-radius:999px;font-size:12px}
+.quiz{margin-top:16px}.question{font-weight:700;font-size:18px}.option{display:block;width:100%;text-align:left;margin:9px 0;padding:13px 15px;border:1px solid var(--border);border-radius:12px;background:white;cursor:pointer}.option:hover{border-color:var(--accent)}.option.correct{border-color:var(--good);background:#ecfdf3}.option.wrong{border-color:var(--bad);background:#fef3f2}.feedback{min-height:25px;font-weight:700}.btn{border:0;border-radius:11px;padding:11px 16px;background:var(--accent);color:#fff;font-weight:700;cursor:pointer}.btn.secondary{background:#e8edff;color:#2447bb}.btn:disabled{opacity:.5;cursor:not-allowed}
+.match{display:grid;grid-template-columns:1fr 1fr;gap:12px}.match select{width:100%;padding:11px;border:1px solid var(--border);border-radius:10px;background:white}
+textarea{width:100%;min-height:120px;padding:12px;border:1px solid var(--border);border-radius:12px;resize:vertical}.score{font-size:30px;font-weight:800}.flash{perspective:800px;cursor:pointer}.flashinner{min-height:190px;display:grid;place-items:center;text-align:center;padding:25px;background:linear-gradient(145deg,#fff,#eef2ff);border-radius:18px;border:1px solid #d9e0ff;font-size:22px;font-weight:800}
+footer{text-align:center;color:var(--muted);padding:30px}
+@media(max-width:600px){.layer{grid-template-columns:38px 1fr}.badge{display:none}.match{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header>
+<div class="wrap">
+<div class="top"><div><h1>Желілік хаттамалар және OSI моделі</h1><p>Интерактивті оқу сайты</p></div><div class="score" id="score">0%</div></div>
+<div class="progress"><div class="bar" id="bar"></div></div>
+<nav>
+<button class="navbtn" onclick="show('home')">Бастау</button>
+<button class="navbtn" onclick="show('osi')">OSI моделі</button>
+<button class="navbtn" onclick="show('protocols')">Хаттамалар</button>
+<button class="navbtn" onclick="show('quiz')">Тест</button>
+<button class="navbtn" onclick="show('tasks')">Тапсырмалар</button>
+<button class="navbtn" onclick="show('check')">Өзін-өзі тексеру</button>
+</nav>
+</div>
+</header>
+
+<main class="wrap">
+<section id="home" class="section active">
+<div class="grid">
+<div class="card"><div class="term"><h2>Хаттама деген не?</h2><p>Хаттама — желідегі құрылғылардың бір-бірімен қалай байланысатынын анықтайтын ережелер жиынтығы.</p></div></div>
+<div class="card"><div class="term"><h2>OSI моделі</h2><p>OSI моделі — желілік байланысты жеті деңгейге бөліп қарастыратын халықаралық стандарт.</p></div></div>
+</div>
+<div class="card" style="margin-top:16px"><h2>Оқу мақсаты</h2><p>OSI моделінің 7 деңгейін түсіну, олардың қызметтерін ажырату және негізгі хаттамалар мен технологияларды дұрыс деңгеймен сәйкестендіру.</p><button class="btn" onclick="show('osi')">Оқуды бастау →</button></div>
+<div class="card" style="margin-top:16px"><h2>Есте сақтаңыз</h2><p>OSI моделі нақты технология емес, желілік өзара әрекеттесуді сипаттайтын эталонды модель. Ол әртүрлі өндірушілердің құрылғыларына бір-бірімен ақпарат алмасуға мүмкіндік береді.</p></div>
+</section>
+
+<section id="osi" class="section">
+<div class="card"><h2>OSI моделінің 7 деңгейі</h2><p>Төменнен жоғары қарай деңгейлерді басып, қызметін көріңіз.</p>
+<div class="layers" id="layers"></div>
+<div class="card" id="layerInfo" style="margin-top:14px;background:#f8fafc"><b>Деңгейді таңдаңыз.</b></div>
+</div>
+</section>
+
+<section id="protocols" class="section">
+<div class="card"><h2>Хаттамалар мен технологияларды сәйкестендіру</h2><p>PDF материалындағы жауап кілтіне сәйкес дұрыс жұптарды қараңыз.</p>
+<div class="match" id="protocolList"></div>
+<button class="btn" style="margin-top:15px" onclick="checkMatch()">Сәйкестікті тексеру</button>
+<p class="feedback" id="matchFeedback"></p>
+</div>
+<div class="card" style="margin-top:16px"><h2>Маңызды байланыстар</h2><div class="grid">
+<div><b>TCP, UDP</b><p>Көліктік деңгей</p></div>
+<div><b>HTTP, FTP</b><p>Қолданбалы деңгей</p></div>
+<div><b>IP, ICMP</b><p>Желілік деңгей</p></div>
+<div><b>Ethernet</b><p>Арналық деңгей</p></div>
+<div><b>Оптикалық талшық / Кабельдер</b><p>Физикалық деңгей</p></div>
+</div></div>
+</section>
+
+<section id="quiz" class="section">
+<div class="card"><h2>Интерактивті тест</h2><p>Дұрыс жауапты таңдаңыз. Нәтиже бірден көрсетіледі.</p><div id="quizBox"></div><button class="btn secondary" onclick="resetQuiz()">Тестті қайта бастау</button></div>
+</section>
+
+<section id="tasks" class="section">
+<div class="card"><h2>Талдау тапсырмасы</h2>
+<p><b>1.</b> OSI моделін құрудың негізгі мақсаты қандай? Бұл модель неліктен «ашық жүйелер» деп аталады?</p>
+<textarea id="a1" placeholder="Жауабыңызды жазыңыз..."></textarea>
+<p><b>2.</b> Желілік (Network) және Көліктік (Transport) деңгейлердің айырмашылығын түсіндіріңіз.</p>
+<textarea id="a2" placeholder="Жауабыңызды жазыңыз..."></textarea>
+<p><b>3.</b> Неліктен IP хаттамасы желілік деңгейге жатады? Оның негізгі міндеті қандай?</p>
+<textarea id="a3" placeholder="Жауабыңызды жазыңыз..."></textarea>
+<button class="btn" onclick="showAnswers()">Үлгі жауаптарды көрсету</button>
+<div id="answers" style="margin-top:15px"></div>
+</div>
+</section>
+
+<section id="check" class="section">
+<div class="card"><h2>Өзін-өзі тексеру</h2><p>Өзіңіздің дайындық деңгейіңізді белгілеңіз.</p><div id="checkList"></div><button class="btn" onclick="saveCheck()">Прогресті сақтау</button><p id="saveMsg"></p></div>
+<div class="card" style="margin-top:16px"><h2>Карточкалар</h2><p>Карточканы басып, жауабын көріңіз.</p><div class="flash" onclick="flipCard()"><div class="flashinner" id="flash">OSI моделінде неше деңгей бар?</div></div></div>
+</section>
+</main>
+<footer>«Желілік хаттамалар және OSI моделіне шолу» оқу материалы негізінде жасалды.</footer>
+
+<script>
+const layers=[
+['1','Физикалық (Physical)','Деректер электрлік немесе оптикалық сигналдар түрінде кабельдер мен физикалық байланыс арналары арқылы беріледі.'],
+['2','Арналық (Data Link)','Физикалық байланыс арнасы арқылы деректерді жеткізуді басқарады және қателерді тексереді.'],
+['3','Желілік (Network)','Деректерді бір желіден екінші желіге жеткізу үшін ең тиімді жолды (маршрутты) таңдайды.'],
+['4','Көліктік (Transport)','Деректердің басынан аяғына дейін сенімді жеткізілуін қамтамасыз етеді, үлкен хабарламаларды бөліктерге бөледі.'],
+['5','Сеанстық (Session)','Екі компьютер арасындағы байланыс сеансын орнатады, басқарады және аяқтайды.'],
+['6','Өкілеттілік (Presentation)','Деректердің форматын түрлендіреді, мысалы шифрлау немесе қысу, және оны қолданбалы деңгейге түсінікті етеді.'],
+['7','Қолданбалы (Application)','Пайдаланушы бағдарламаларының, мысалы браузер немесе электрондық пошта, желімен тікелей байланысын қамтамасыз етеді.']
+];
+document.getElementById('layers').innerHTML=layers.map((x,i)=>`<div class="layer" onclick="layerInfo(${i})"><span class="num">${x[0]}</span><div><b>${x[1]}</b><br><small>${i===0?'Биттер мен сигналдар':i===1?'Кадрлар және қателер':i===2?'Маршруттау және IP':i===3?'Соңына дейін жеткізу':i===4?'Сеансты басқару':i===5?'Форматты түрлендіру':'Желімен тікелей әрекеттесу'}</small></div><span class="badge">Ашу</span></div>`).join('');
+function layerInfo(i){document.getElementById('layerInfo').innerHTML=`<h3>${layers[i][1]}</h3><p>${layers[i][2]}</p>`}
+
+const pairs=[['HTTP, FTP','Қолданбалы (Application) деңгей'],['TCP, UDP','Көліктік (Transport) деңгей'],['IP, ICMP','Желілік (Network) деңгей'],['Ethernet','Арналық (Data Link) деңгей'],['Оптикалық талшық / Кабельдер','Физикалық (Physical) деңгей']];
+const opts=['Физикалық (Physical) деңгей','Арналық (Data Link) деңгей','Желілік (Network) деңгей','Көліктік (Transport) деңгей','Сеанстық (Session) деңгей','Өкілеттілік (Presentation) деңгей','Қолданбалы (Application) деңгей'];
+document.getElementById('protocolList').innerHTML=pairs.map((p,i)=>`<label><b>${p[0]}</b><select id="m${i}"><option value="">-- таңдаңыз --</option>${opts.map(o=>`<option>${o}</option>`).join('')}</select></label>`).join('');
+function checkMatch(){let n=0;pairs.forEach((p,i)=>{if(document.getElementById('m'+i).value===p[1])n++});document.getElementById('matchFeedback').textContent=`Нәтиже: ${n}/${pairs.length}.`;updateProgress();}
+
+const qs=[
+['OSI моделінің неше деңгейі бар?',['5','6','7','8'],2],
+['Физикалық деңгейде деректер қалай беріледі?',['Пакет түрінде ғана','Электрлік немесе оптикалық сигналдар түрінде','Тек мәтін түрінде','Тек IP арқылы'],1],
+['IP және ICMP қай деңгейге жатады?',['Физикалық','Арналық','Желілік','Қолданбалы'],2],
+['TCP және UDP қай деңгейде жұмыс істейді?',['Көліктік','Сеанстық','Физикалық','Өкілеттілік'],0],
+['Браузер интернетпен тікелей қай деңгей арқылы әрекеттеседі?',['Желілік','Көліктік','Қолданбалы','Арналық'],2],
+['Ethernet қай деңгейге жатады?',['Қолданбалы','Арналық','Көліктік','Сеанстық'],1],
+['OSI моделін құрудың негізгі мақсаты қандай?',['Тек кабель шығару','Әртүрлі аппараттық және бағдарламалық жабдықтардың үйлесімді жұмысын стандарттау','Тек браузер жасау','Тек IP мекенжай беру'],1]
+];
+let qi=0,correct=0;
+function renderQuiz(){let q=qs[qi];document.getElementById('quizBox').innerHTML=`<div class="quiz"><div class="question">${qi+1}/${qs.length}. ${q[0]}</div>${q[1].map((o,i)=>`<button class="option" onclick="answer(${i})">${o}</button>`).join('')}<p class="feedback" id="qf"></p></div>`}
+function answer(i){let q=qs[qi],bs=document.querySelectorAll('.option');bs.forEach(b=>b.disabled=true);if(i===q[2]){bs[i].classList.add('correct');correct++;document.getElementById('qf').textContent='Дұрыс!'}else{bs[i].classList.add('wrong');bs[q[2]].classList.add('correct');document.getElementById('qf').textContent='Қате. Дұрыс жауап белгіленді.'}setTimeout(()=>{qi++;if(qi<qs.length)renderQuiz();else{document.getElementById('quizBox').innerHTML=`<h3>Тест аяқталды!</h3><div class="score">${correct}/${qs.length}</div><p>${Math.round(correct/qs.length*100)}% нәтиже</p>`;updateProgress()}},650)}
+function resetQuiz(){qi=0;correct=0;renderQuiz()}
+renderQuiz();
+
+const checks=['«Хаттама» ұғымына анықтама бере аламын және оның желідегі рөлін түсіндіре аламын.','OSI моделінің барлық 7 деңгейін ретімен атай аламын.','IP хаттамасының OSI моделінің қай деңгейіне жататынын анықтай аламын.','Физикалық және логикалық адрестеудің (мысалы, MAC және IP) арасындағы айырмашылықты түсінемін.','Желілік және көліктік деңгейлердің негізгі функцияларын ажырата аламын.','Дүниежүзілік интернет байланысы үшін хаттамаларды стандарттаудың неліктен маңызды екенін түсіндіре аламын.'];
+document.getElementById('checkList').innerHTML=checks.map((x,i)=>`<label style="display:block;padding:12px;border-bottom:1px solid var(--border)"><input type="checkbox" id="c${i}"> ${x}</label>`).join('');
+function saveCheck(){let n=checks.filter((_,i)=>document.getElementById('c'+i).checked).length;localStorage.setItem('osiCheck',n);document.getElementById('saveMsg').textContent=`Сақталды: ${n}/${checks.length} тұжырым.`;updateProgress()}
+function updateProgress(){let a=Number(localStorage.getItem('osiCheck')||0), b=correct, p=Math.round((a/checks.length*.5 + b/qs.length*.5)*100);document.getElementById('bar').style.width=p+'%';document.getElementById('score').textContent=p+'%'}
+let flipped=false;function flipCard(){flipped=!flipped;document.getElementById('flash').textContent=flipped?'7 деңгей':'OSI моделінде неше деңгей бар?'}
+function show(id){document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');window.scrollTo({top:0,behavior:'smooth'})}
+function showAnswers(){document.getElementById('answers').innerHTML=`<div class="card"><p><b>1.</b> Негізгі мақсаты — әртүрлі өндірушілер шығарған аппараттық және программалық жабдықтардың бір-бірімен үйлесімді жұмысын стандарттау. «Ашық жүйелер» деп аталады, себебі ашық стандарттарға негізделіп, жүйелердің өзара әрекеттесуіне мүмкіндік береді.</p><p><b>2.</b> Желілік деңгей пакеттерді желілер арасында бағыттауға және IP арқылы логикалық адрестеуге жауапты. Көліктік деңгей деректердің соңғы нүктелер арасында сенімді, қатесіз және ретті жеткізілуін қадағалайды.</p><p><b>3.</b> IP желілік деңгейге жатады, себебі оның негізгі міндеті — құрылғыларға логикалық мекенжай беру және пакеттерді мекенжайы бойынша бағыттау.</p></div>`}
+updateProgress();
+</script>
+</body>
+</html>
